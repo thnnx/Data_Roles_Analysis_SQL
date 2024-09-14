@@ -1,8 +1,8 @@
-# Job Posting Analysis on Data Analyst Roles
+# Job Posting Analysis on Data Analyst Roles (2023)
 Analysis of job posting all over the world specifically related on data analyst roles (Data Analyst, Data Scientist, Data Engineer, etc..)
 
 ## Introduction
-Diving into the data job market, focusing on data analyst roles, this project explores top-paying jobs, in-demand skills, and where high demand meets high salary in data analytics.
+Diving into the data job market, focusing on data analyst roles demand in year 2023, this project explores top-paying jobs, in-demand skills, and where high demand meets high salary in data analytics.
 
 ## Background
 Fueled by the ambition to excel in the competitive data analyst job market, this project was created to identify the most in demand and sought-after data analyst skills, simplifying the job search process for others to find their ideal roles.
@@ -28,35 +28,31 @@ For my deep dive into the data analyst job market, I harnessed the power of seve
 Each query for this project aimed at investigating specific aspects of the data analyst job market.
 
 ### 1. Top Paying Data Analyst Jobs
-To identify the highest-paying roles, I filtered data analyst positions by average yearly salary and location, focusing on remote jobs. This query highlights the high paying opportunities in the field.
+To identify the top 10 highest-paying roles (Data Analyst, Senior Data Analyst, Business Analyst, Data Engineer, Data Scientist, Senior Data Scientist), I filtered data analyst positions by average yearly salary and location, focusing on Asian and Oceania countries. This query highlights the high paying opportunities in the field.
 
 ```sql
-SELECT	
-	job_id,
-	job_title,
-	job_location,
-	job_schedule_type,
-	salary_year_avg,
-	job_posted_date,
-    name AS company_name
-FROM
-    job_postings_fact
-LEFT JOIN company_dim ON job_postings_fact.company_id = company_dim.company_id
-WHERE
-    job_title_short = 'Data Analyst' AND 
-    job_location = 'Anywhere' AND 
-    salary_year_avg IS NOT NULL
-ORDER BY
-    salary_year_avg DESC
-LIMIT 10;
+  SELECT TOP 10	
+	jpf.job_title_short, jpf.salary_year_avg, cd.name, jpf.job_country, jpf.job_posted_date
+  FROM 
+	job_postings_fact AS jpf
+  LEFT JOIN company_dim AS cd
+	ON jpf.company_id = cd.company_id
+  WHERE 
+	  jpf.salary_year_avg IS NOT NULL 
+	  AND
+	  jpf.job_title_short in ('Data Analyst',  'Senior Data Analyst',  'Business Analyst', 'Data Engineer', 'Data Scientist', 'Senior Data Scientist')
+	  AND
+	  jpf.job_country in ('Singapore', 'Philippines', 'Australia', 'China', 'Japan', 'Malaysia', 'New Zealand', 'Taiwan', 'Vietnam', 'Brunei', 'Hong Kong','Indonesia','South Korea','Thailand')
+  ORDER BY salary_year_avg DESC
 ```
-Here's the breakdown of the top data analyst jobs in 2023:
-- **Wide Salary Range:** Top 10 paying data analyst roles span from $184,000 to $650,000, indicating significant salary potential in the field.
-- **Diverse Employers:** Companies like SmartAsset, Meta, and AT&T are among those offering high salaries, showing a broad interest across different industries.
-- **Job Title Variety:** There's a high diversity in job titles, from Data Analyst to Director of Analytics, reflecting varied roles and specializations within data analytics.
+![Query1_ss](images/Query1_ss.PNG)
 
-![Top Paying Roles](assets/1_top_paying_roles.png)
-*Bar graph visualizing the salary for the top 10 salaries for data analysts; ChatGPT generated this graph from my SQL query results*
+Breakdown analysis of the top data-related jobs in 2023 for Asia and Oceania
+- **Salary:** The salaries range from 177,000 to 249,000 per year. The highest salary is offered for a "Data Engineer" role, while the lowest salary is for a "Data Analyst" position.
+- **Companies:** The companies listed in the data include well-known names such as Visa, Amazon.com, Airwallex, and Agoda, as well as others like Trusting Social, EVYD Technology, and Anaxyn Project. These organizations operate across different countries, reflecting the global demand for data-related roles.
+- **Job titles (Roles):** There's a high diversity in job titles for the top 10 in demand roles, from Data Analyst to Senior Data Scientist, reflecting varied roles and specializations within data analytics.
+
+**[Visualization Insert here if available]**
 
 ### 2. Skills for Top Paying Jobs
 To understand what skills are required for the top-paying jobs, I joined the job postings with the skills data, providing insights into what employers value for high-compensation roles.
