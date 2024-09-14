@@ -101,34 +101,34 @@ Here's the breakdown of the most demanded skills for the top 10 highest paying d
 This query helped identify the skills most frequently requested in job postings, directing focus to areas with high demand.
 
 ```sql
-SELECT 
-    skills,
-    COUNT(skills_job_dim.job_id) AS demand_count
-FROM job_postings_fact
-INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
-INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
-WHERE
-    job_title_short = 'Data Analyst' 
-    AND job_work_from_home = True 
-GROUP BY
-    skills
-ORDER BY
-    demand_count DESC
-LIMIT 5;
+SELECT TOP 10
+    sd.skills as Skill_Name,
+    count(jpf.job_id) AS job_count 
+FROM
+    job_postings_fact jpf
+INNER JOIN skills_job_dim sjd 
+    ON jpf.job_id = sjd.job_id
+INNER JOIN skills_dim sd
+    ON sjd.skill_id = sd.skill_id
+WHERE 
+    jpf.job_title_short in ('Data Analyst',  'Senior Data Analyst',  'Business Analyst')
+	AND
+	jpf.job_country in ('Singapore', 'Philippines', 'Australia', 'China', 'Japan', 'Malaysia', 'New Zealand', 'Taiwan', 'Vietnam', 'Brunei', 'Hong Kong','Indonesia','South Korea','Thailand')
+GROUP BY 
+    sjd.skill_id, sd.skills
+ORDER BY 
+    job_count DESC;
 ```
+![Query3_ss](images/Query3_ss.PNG)
+
 Here's the breakdown of the most demanded skills for data analysts in 2023
 - **SQL** and **Excel** remain fundamental, emphasizing the need for strong foundational skills in data processing and spreadsheet manipulation.
 - **Programming** and **Visualization Tools** like **Python**, **Tableau**, and **Power BI** are essential, pointing towards the increasing importance of technical skills in data storytelling and decision support.
 
-| Skills   | Demand Count |
-|----------|--------------|
-| SQL      | 7291         |
-| Excel    | 4611         |
-| Python   | 4330         |
-| Tableau  | 3745         |
-| Power BI | 2609         |
+**Note:** For reference of the SQL file used, click this link - [In_Demand_Skill](sql_files/Query3_In_Demand_skills.sql)
 
-*Table of the demand for the top 5 skills in data analyst job postings*
+**[Visualization Insert here if available]**
+
 
 ### 4. Skills Based on Salary
 Exploring the average salaries associated with different skills revealed which skills are the highest paying.
