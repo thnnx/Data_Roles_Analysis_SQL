@@ -52,46 +52,49 @@ Breakdown analysis of the top data-related jobs in 2023 for Asia and Oceania
 - **Companies:** The companies listed in the data include well-known names such as Visa, Amazon.com, Airwallex, and Agoda, as well as others like Trusting Social, EVYD Technology, and Anaxyn Project. These organizations operate across different countries, reflecting the global demand for data-related roles.
 - **Job titles (Roles):** There's a high diversity in job titles for the top 10 in demand roles, from Data Analyst to Senior Data Scientist, reflecting varied roles and specializations within data analytics.
 
+**Note:** For reference of the SQL file used, click this link - [Top_Paying_Role](sql_files/Query1_Top_Paying_Role.sql)
+
 **[Visualization Insert here if available]**
 
 ### 2. Skills for Top Paying Jobs
-To understand what skills are required for the top-paying jobs, I joined the job postings with the skills data, providing insights into what employers value for high-compensation roles.
+To identify what skills are required for the top-paying jobs, I joined the job postings with the skills data, providing insights into what employers value for high-compensation roles.
 ```sql
-WITH top_paying_jobs AS (
-    SELECT	
-        job_id,
-        job_title,
-        salary_year_avg,
-        name AS company_name
-    FROM
-        job_postings_fact
-    LEFT JOIN company_dim ON job_postings_fact.company_id = company_dim.company_id
-    WHERE
-        job_title_short = 'Data Analyst' AND 
-        job_location = 'Anywhere' AND 
-        salary_year_avg IS NOT NULL
-    ORDER BY
-        salary_year_avg DESC
-    LIMIT 10
-)
 
-SELECT 
-    top_paying_jobs.*,
-    skills
-FROM top_paying_jobs
-INNER JOIN skills_job_dim ON top_paying_jobs.job_id = skills_job_dim.job_id
-INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
-ORDER BY
-    salary_year_avg DESC;
+WITH tbl1 AS (
+  SELECT 	
+	jpf.job_id, jpf.job_title_short, jpf.salary_year_avg, cd.name, jpf.job_country, jpf.job_posted_date
+  FROM 
+	job_postings_fact AS jpf
+  LEFT JOIN company_dim AS cd
+	ON jpf.company_id = cd.company_id
+  WHERE 
+	  salary_year_avg IS NOT NULL 
+	  AND
+	  job_title_short in ('Data Analyst',  'Senior Data Analyst',  'Business Analyst')
+	  AND
+	  job_country in ('Singapore', 'Philippines', 'Australia', 'China', 'Japan', 'Malaysia', 'New Zealand', 'Taiwan', 'Vietnam', 'Brunei', 'Hong Kong','Indonesia','South Korea','Thailand')
+  )
+
+  SELECT TOP 10 t1.job_id, t1.job_title_short, t1.salary_year_avg, t1.name, t1.job_country, sjd.skill_id, sd.skills
+  FROM tbl1 t1
+  LEFT JOIN skills_job_dim as sjd
+    ON t1.job_id = sjd.job_id
+  LEFT JOIN skills_dim as sd
+	ON sjd.skill_id = sd.skill_id
+  WHERE sd.skill_id IS NOT NULL
+  ORDER BY t1.salary_year_avg DESC
+
 ```
-Here's the breakdown of the most demanded skills for the top 10 highest paying data analyst jobs in 2023:
-- **SQL** is leading with a bold count of 8.
-- **Python** follows closely with a bold count of 7.
-- **Tableau** is also highly sought after, with a bold count of 6.
-Other skills like **R**, **Snowflake**, **Pandas**, and **Excel** show varying degrees of demand.
+![Query2_ss](images/Query2_ss.PNG)
 
-![Top Paying Skills](assets/2_top_paying_roles_skills.png)
-*Bar graph visualizing the count of skills for the top 10 paying jobs for data analysts; ChatGPT generated this graph from my SQL query results*
+Here's the breakdown of the most demanded skills for the top 10 highest paying data analyst jobs in 2023:
+- **SQL** is leading at top 1 with 200k.
+- **Python** follows closely at second with 170k.
+- **GCP/AWS/AZUE/PYTORCH** are also highly sought after.
+
+**Note:** For reference of the SQL file used, click this link - [Top_Paying_Role_Skill](sql_files/Query2_Top_Paying_Role_Skill.sql)
+
+**[Visualization Insert here if available]**
 
 ### 3. In-Demand Skills for Data Analysts
 
