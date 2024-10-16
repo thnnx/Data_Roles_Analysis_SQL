@@ -26,11 +26,16 @@ For my deep dive into the data analyst job market, I harnessed the power of seve
 ## Data Preparation
 
 - Downloaded the csv files dataset from web scrapping application
-  ![csv_files_ss](images/csv_files_ss.PNG)
+
+
+![csv_files_ss](images/csv_files_ss.PNG)
 - Create database the their tables.
-  ![db_sql](images/db_sql.PNG)
+
+![db_sql](images/db_sql.PNG)
 - Insert or import the downloaded csv files into the tables.
-  ![insert_data_1](images/insert_data_1.PNG) ![insert_data_2](images/insert_data_2.PNG)
+
+
+![insert_data_1](images/insert_data_1.PNG)![insert_data_2](images/insert_data_2.PNG)
 
 ## Analysis
 Each query for this project aimed at investigating specific aspects of the data analyst job market.
