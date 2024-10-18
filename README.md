@@ -23,6 +23,12 @@ For my deep dive into the data analyst job market, I harnessed the power of seve
 - **MS SQL Server:** The chosen database management system.
 - **MS SQL Server Management Studio:** For database management and executing SQL queries.
 
+## Data Visualization
+Full page link of the Interactive Tableau Dashboard click this link - [Tableau link](https://public.tableau.com/app/profile/anthony.sinoy/viz/Tableau_Data_Jobs/Dashboard1)
+	
+ ![Data_jobs_Tableau](images/Data_jobs_Tableau.PNG)
+
+ 
 ## Data Preparation
 
 - Downloaded the csv files dataset from web scrapping application
