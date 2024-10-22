@@ -22,6 +22,7 @@ For my deep dive into the data analyst job market, I harnessed the power of seve
 - **SQL:** The backbone of my analysis, allowing me to query the database and find valuable insights.
 - **MS SQL Server:** The chosen database management system.
 - **MS SQL Server Management Studio:** For database management and executing SQL queries.
+- **Tableau:** For data visualization and analysis.
 
 ## Data Visualization
 Full page link of the Interactive Tableau Dashboard click this link - [Tableau link](https://public.tableau.com/app/profile/anthony.sinoy/viz/Tableau_Data_Jobs/Dashboard1)
