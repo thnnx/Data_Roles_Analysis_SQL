@@ -274,16 +274,3 @@ From the analysis, several general insights emerged:
 
 This project significantly strengthened my SQL expertise while offering valuable insights into the data analyst job market. The analysis serves as a strategic guide for prioritizing skill development and optimizing job search efforts. By focusing on high-demand, high-paying skills, aspiring data analysts can better position themselves in a competitive market. This exploration underscores the importance of continuous learning and adapting to emerging trends in the field of data analytics.
 
-        SELECT 
-          [DateKey], 
-          [FullDateAlternateKey] AS Date, 
-          [EnglishDayNameOfWeek] AS Day, 
-          [EnglishMonthName] AS Month, 
-          Left([EnglishMonthName], 3) AS MonthShort,   -- Useful for front end date navigation and front end graphs.
-          [MonthNumberOfYear] AS MonthNo, 
-          [CalendarQuarter] AS Quarter, 
-          [CalendarYear] AS Year --[CalendarSemester] 
-        FROM 
-         [AdventureWorksDW2019].[dbo].[DimDate]
-        WHERE 
-          CalendarYear >= 2019
